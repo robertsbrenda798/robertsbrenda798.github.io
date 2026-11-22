@@ -1,0 +1,2274 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>魅影直播-让每一次相遇都有值得停留的精彩</title>
+  <meta name="description" content="魅影直播汇聚音乐现场、舞蹈才艺、游戏交流与生活分享，以清晰的频道分类、便捷的视频播放和贴心的观看工具，帮助你发现感兴趣的内容。浏览主题精选、收藏喜爱频道、记录观看灵感，了解直播观看与互动技巧；支持手机、平板及电脑访问，搭配日夜主题切换，让每一段闲暇时光更有趣。">
+  <meta name="keywords" content="魅影直播">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="theme-color" content="#0b0a12">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="魅影直播-让每一次相遇都有值得停留的精彩">
+  <meta property="og:description" content="发现音乐现场、舞蹈才艺、游戏交流与生活分享，收藏喜爱频道，记录观看灵感，让每一段闲暇时光更有趣。">
+  <meta property="og:site_name" content="魅影直播">
+  <script>
+    document.documentElement.classList.add('js');
+    try {
+      const savedTheme = localStorage.getItem('meiying-theme');
+      if (savedTheme === 'light' || savedTheme === 'dark') {
+        document.documentElement.dataset.theme = savedTheme;
+      }
+    } catch (error) {}
+  </script>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0b0a12;
+      --bg-soft: #110f1a;
+      --surface: rgba(255, 255, 255, 0.055);
+      --surface-solid: #17141f;
+      --surface-hover: #1d1928;
+      --text: #f7f3fa;
+      --muted: #aca4b7;
+      --line: rgba(255, 255, 255, 0.1);
+      --primary: #ff7185;
+      --primary-deep: #ef536d;
+      --primary-rgb: 255, 113, 133;
+      --secondary: #b8a0ff;
+      --header: rgba(11, 10, 18, 0.78);
+      --input: rgba(0, 0, 0, 0.2);
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+      --card-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
+    }
+
+    html[data-theme="light"] {
+      color-scheme: light;
+      --bg: #fbf9fc;
+      --bg-soft: #f4eff6;
+      --surface: rgba(255, 255, 255, 0.78);
+      --surface-solid: #ffffff;
+      --surface-hover: #f7f1f7;
+      --text: #241c2b;
+      --muted: #746a7c;
+      --line: rgba(54, 35, 62, 0.11);
+      --primary: #e95370;
+      --primary-deep: #d94060;
+      --primary-rgb: 233, 83, 112;
+      --secondary: #7959cb;
+      --header: rgba(251, 249, 252, 0.84);
+      --input: #f7f3f8;
+      --shadow: 0 24px 70px rgba(73, 43, 77, 0.14);
+      --card-shadow: 0 16px 40px rgba(73, 43, 77, 0.09);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 92px;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background:
+        radial-gradient(circle at 8% 5%, rgba(var(--primary-rgb), 0.08), transparent 28rem),
+        var(--bg);
+      color: var(--text);
+      font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", system-ui, -apple-system, sans-serif;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    body, button, textarea {
+      font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", system-ui, -apple-system, sans-serif;
+    }
+
+    ::selection {
+      background: rgba(var(--primary-rgb), 0.3);
+      color: var(--text);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, textarea {
+      font: inherit;
+    }
+
+    button {
+      color: inherit;
+    }
+
+    button, a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button:focus-visible, a:focus-visible, textarea:focus-visible, summary:focus-visible {
+      outline: 3px solid rgba(var(--primary-rgb), 0.38);
+      outline-offset: 4px;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+    }
+
+    svg {
+      display: block;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 48px));
+      margin-inline: auto;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 1000;
+      padding: 10px 16px;
+      border-radius: 10px;
+      background: var(--text);
+      color: var(--bg);
+      transform: translateY(-150%);
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--line);
+      background: var(--header);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      min-height: 76px;
+      gap: 28px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      flex-shrink: 0;
+      gap: 11px;
+      font-size: 21px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border-radius: 13px;
+      background: linear-gradient(135deg, #ff8b91, #f05578 50%, #9b6bdb);
+      box-shadow: 0 8px 24px rgba(var(--primary-rgb), 0.24);
+    }
+
+    .brand-mark svg {
+      width: 23px;
+      height: 23px;
+    }
+
+    .site-nav {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      margin-left: auto;
+    }
+
+    .site-nav a {
+      position: relative;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+
+    .site-nav a::after {
+      position: absolute;
+      right: 0;
+      bottom: -8px;
+      left: 0;
+      height: 2px;
+      border-radius: 2px;
+      background: var(--primary);
+      content: "";
+      opacity: 0;
+      transform: scaleX(0.5);
+      transition: 0.2s ease;
+    }
+
+    .site-nav a:hover {
+      color: var(--text);
+    }
+
+    .site-nav a:hover::after {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .icon-button {
+      display: inline-grid;
+      width: 42px;
+      height: 42px;
+      padding: 0;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: var(--surface);
+      cursor: pointer;
+      transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+    }
+
+    .icon-button:hover {
+      border-color: rgba(var(--primary-rgb), 0.38);
+      background: var(--surface-hover);
+      transform: translateY(-2px);
+    }
+
+    .icon-button svg {
+      width: 19px;
+      height: 19px;
+    }
+
+    .theme-sun, html[data-theme="light"] .theme-moon {
+      display: none;
+    }
+
+    html[data-theme="light"] .theme-sun {
+      display: block;
+    }
+
+    .menu-toggle {
+      display: none;
+    }
+
+    .hero {
+      position: relative;
+      padding: 82px 0 72px;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      position: absolute;
+      top: -150px;
+      right: -80px;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(var(--primary-rgb), 0.14), transparent 67%);
+      content: "";
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.04fr 0.96fr;
+      align-items: center;
+      gap: 68px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 22px;
+      padding: 7px 13px;
+      border: 1px solid rgba(var(--primary-rgb), 0.22);
+      border-radius: 999px;
+      background: rgba(var(--primary-rgb), 0.07);
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
+
+    .eyebrow-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--primary);
+      box-shadow: 0 0 0 5px rgba(var(--primary-rgb), 0.1);
+    }
+
+    .hero h1 {
+      max-width: 650px;
+      margin: 0;
+      font-size: clamp(42px, 5.1vw, 68px);
+      font-weight: 850;
+      letter-spacing: -0.055em;
+      line-height: 1.17;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(100deg, var(--primary), #ff9a9c 48%, var(--secondary));
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-description {
+      max-width: 590px;
+      margin: 25px 0 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.95;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 32px;
+    }
+
+    .button {
+      display: inline-flex;
+      min-height: 50px;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 0 23px;
+      border: 1px solid transparent;
+      border-radius: 15px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-3px);
+    }
+
+    .button-primary {
+      background: linear-gradient(120deg, var(--primary), var(--primary-deep));
+      box-shadow: 0 12px 28px rgba(var(--primary-rgb), 0.25);
+      color: #fff;
+    }
+
+    .button-primary:hover {
+      box-shadow: 0 16px 34px rgba(var(--primary-rgb), 0.34);
+    }
+
+    .button-secondary {
+      border-color: var(--line);
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .button svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .hero-points {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 21px;
+      margin: 28px 0 0;
+      padding: 0;
+      color: var(--muted);
+      font-size: 13px;
+      list-style: none;
+    }
+
+    .hero-points li {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .hero-points svg {
+      width: 16px;
+      height: 16px;
+      color: var(--primary);
+    }
+
+    .hero-visual {
+      position: relative;
+      padding: 12px;
+    }
+
+    .hero-visual::before {
+      position: absolute;
+      inset: 11% -5% -5% 15%;
+      z-index: -1;
+      border-radius: 40px;
+      background: linear-gradient(145deg, rgba(var(--primary-rgb), 0.2), rgba(184, 160, 255, 0.07));
+      content: "";
+      filter: blur(28px);
+    }
+
+    .live-frame {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 30px;
+      background: #17121e;
+      box-shadow: var(--shadow);
+      transform: rotate(1.4deg);
+    }
+
+    .live-frame > img {
+      aspect-ratio: 4 / 4.35;
+      object-fit: cover;
+    }
+
+    .live-frame::after {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(8, 5, 12, 0.13) 20%, transparent 42%, rgba(8, 5, 12, 0.92) 100%);
+      content: "";
+      pointer-events: none;
+    }
+
+    .live-top {
+      position: absolute;
+      top: 22px;
+      right: 22px;
+      left: 22px;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .live-badge, .viewer-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 11px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 999px;
+      background: rgba(13, 9, 18, 0.5);
+      backdrop-filter: blur(12px);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .live-badge i {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #ff7588;
+      box-shadow: 0 0 0 4px rgba(255, 117, 136, 0.16);
+      animation: pulse 2s infinite;
+    }
+
+    .live-content {
+      position: absolute;
+      right: 25px;
+      bottom: 27px;
+      left: 25px;
+      z-index: 2;
+      color: #fff;
+    }
+
+    .live-kicker {
+      margin: 0 0 7px;
+      color: #ffb0bb;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+    }
+
+    .live-content h2 {
+      margin: 0;
+      font-size: clamp(23px, 2.6vw, 31px);
+      letter-spacing: -0.035em;
+      line-height: 1.35;
+    }
+
+    .live-content > p:not(.live-kicker) {
+      margin: 8px 0 20px;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 13px;
+    }
+
+    .live-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .equalizer {
+      display: flex;
+      height: 22px;
+      align-items: flex-end;
+      gap: 4px;
+    }
+
+    .equalizer i {
+      width: 3px;
+      border-radius: 3px;
+      background: #ff8da0;
+      animation: equalize 1s ease-in-out infinite alternate;
+    }
+
+    .equalizer i:nth-child(1) { height: 45%; animation-delay: -0.6s; }
+    .equalizer i:nth-child(2) { height: 90%; animation-delay: -0.3s; }
+    .equalizer i:nth-child(3) { height: 65%; animation-delay: -0.8s; }
+    .equalizer i:nth-child(4) { height: 100%; animation-delay: -0.1s; }
+    .equalizer i:nth-child(5) { height: 55%; animation-delay: -0.5s; }
+
+    .text-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 0;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .text-button svg {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.2s ease;
+    }
+
+    .text-button:hover svg {
+      transform: translateX(4px);
+    }
+
+    .floating-tag {
+      position: absolute;
+      right: -20px;
+      bottom: 80px;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 17px;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: var(--surface-solid);
+      box-shadow: var(--card-shadow);
+      transform: rotate(-3deg);
+    }
+
+    .floating-icon {
+      display: grid;
+      width: 35px;
+      height: 35px;
+      place-items: center;
+      border-radius: 11px;
+      background: rgba(var(--primary-rgb), 0.12);
+      color: var(--primary);
+    }
+
+    .floating-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .floating-tag strong, .floating-tag small {
+      display: block;
+    }
+
+    .floating-tag strong {
+      font-size: 12px;
+    }
+
+    .floating-tag small {
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .content-ribbon {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      margin-top: 2px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--surface);
+    }
+
+    .ribbon-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 11px;
+      padding: 20px 14px;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .ribbon-item + .ribbon-item {
+      border-left: 1px solid var(--line);
+    }
+
+    .ribbon-item svg {
+      width: 19px;
+      height: 19px;
+      flex-shrink: 0;
+      color: var(--primary);
+    }
+
+    .ribbon-item strong {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .section {
+      padding: 94px 0;
+    }
+
+    .section-soft {
+      border-block: 1px solid var(--line);
+      background: var(--bg-soft);
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .section-kicker {
+      margin: 0 0 9px;
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.17em;
+      text-transform: uppercase;
+    }
+
+    .section-heading h2, .tools-intro h2, .cta-panel h2 {
+      margin: 0;
+      font-size: clamp(29px, 3.6vw, 40px);
+      letter-spacing: -0.045em;
+      line-height: 1.3;
+    }
+
+    .section-description {
+      max-width: 440px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.85;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 34px 0 26px;
+    }
+
+    .filter-button {
+      display: inline-flex;
+      min-height: 40px;
+      align-items: center;
+      gap: 6px;
+      padding: 0 17px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 650;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .filter-button:hover {
+      border-color: rgba(var(--primary-rgb), 0.4);
+      color: var(--text);
+    }
+
+    .filter-button.active {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(var(--primary-rgb), 0.18);
+    }
+
+    .filter-count {
+      display: inline-grid;
+      min-width: 19px;
+      height: 19px;
+      place-items: center;
+      padding: 0 5px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.16);
+      font-size: 10px;
+    }
+
+    .results-status {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .channel-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 21px;
+    }
+
+    .channel-card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: var(--surface);
+      box-shadow: 0 0 0 transparent;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+
+    .channel-card:hover {
+      border-color: rgba(var(--primary-rgb), 0.3);
+      box-shadow: var(--card-shadow);
+      transform: translateY(-7px);
+    }
+
+    .channel-media {
+      position: relative;
+      overflow: hidden;
+      background: var(--surface-solid);
+    }
+
+    .channel-media img {
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .channel-card:hover .channel-media img {
+      transform: scale(1.045);
+    }
+
+    .channel-media::after {
+      position: absolute;
+      inset: 45% 0 0;
+      background: linear-gradient(transparent, rgba(8, 5, 12, 0.38));
+      content: "";
+      pointer-events: none;
+    }
+
+    .channel-label {
+      position: absolute;
+      bottom: 13px;
+      left: 13px;
+      z-index: 2;
+      padding: 5px 9px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 8px;
+      background: rgba(11, 8, 15, 0.54);
+      backdrop-filter: blur(8px);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .favorite-button {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 3;
+      display: grid;
+      width: 35px;
+      height: 35px;
+      padding: 0;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      background: rgba(11, 8, 15, 0.5);
+      backdrop-filter: blur(8px);
+      color: #fff;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .favorite-button:hover {
+      background: rgba(11, 8, 15, 0.75);
+      transform: scale(1.08);
+    }
+
+    .favorite-button svg {
+      width: 17px;
+      height: 17px;
+    }
+
+    .favorite-button[aria-pressed="true"] {
+      border-color: var(--primary);
+      background: var(--primary);
+    }
+
+    .favorite-button[aria-pressed="true"] svg {
+      fill: currentColor;
+    }
+
+    .channel-body {
+      padding: 19px 19px 20px;
+    }
+
+    .channel-meta {
+      margin: 0 0 6px;
+      color: var(--primary);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .channel-body h3 {
+      margin: 0;
+      font-size: 18px;
+      letter-spacing: -0.025em;
+    }
+
+    .channel-body > p:not(.channel-meta) {
+      min-height: 68px;
+      margin: 10px 0 15px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.85;
+    }
+
+    .channel-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .channel-tags span {
+      padding: 4px 8px;
+      border-radius: 7px;
+      background: var(--surface-hover);
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    .collection-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      margin-top: 38px;
+    }
+
+    .collection-card {
+      position: relative;
+      min-height: 330px;
+      overflow: hidden;
+      padding: 29px;
+      border: 1px solid var(--line);
+      border-radius: 25px;
+      background: var(--surface);
+      isolation: isolate;
+    }
+
+    .collection-card::before, .collection-card::after {
+      position: absolute;
+      z-index: -1;
+      border-radius: 50%;
+      content: "";
+    }
+
+    .collection-card::before {
+      top: -70px;
+      right: -50px;
+      width: 220px;
+      height: 220px;
+      background: var(--collection-glow, rgba(var(--primary-rgb), 0.15));
+      filter: blur(3px);
+    }
+
+    .collection-card::after {
+      right: 35px;
+      bottom: -80px;
+      width: 170px;
+      height: 170px;
+      border: 1px solid var(--line);
+    }
+
+    .collection-card:nth-child(2) {
+      --collection-glow: rgba(117, 94, 214, 0.17);
+    }
+
+    .collection-card:nth-child(3) {
+      --collection-glow: rgba(232, 155, 88, 0.14);
+    }
+
+    .collection-number {
+      color: var(--muted);
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+    }
+
+    .collection-icon {
+      display: grid;
+      width: 51px;
+      height: 51px;
+      margin: 40px 0 23px;
+      place-items: center;
+      border: 1px solid rgba(var(--primary-rgb), 0.16);
+      border-radius: 16px;
+      background: rgba(var(--primary-rgb), 0.09);
+      color: var(--primary);
+    }
+
+    .collection-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .collection-card h3 {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: -0.035em;
+    }
+
+    .collection-card p {
+      min-height: 52px;
+      margin: 11px 0 19px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.85;
+    }
+
+    .collection-card .text-button {
+      color: var(--primary);
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: 0.94fr 1.06fr;
+      align-items: center;
+      gap: 72px;
+    }
+
+    .tools-intro > p:not(.section-kicker) {
+      margin: 18px 0 30px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.9;
+    }
+
+    .feature-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 13px;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: var(--surface);
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .feature-item svg {
+      width: 19px;
+      height: 19px;
+      flex-shrink: 0;
+      color: var(--primary);
+    }
+
+    .notes-card {
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 25px;
+      background: var(--surface-solid);
+      box-shadow: var(--card-shadow);
+    }
+
+    .notes-heading {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .notes-heading .collection-icon {
+      width: 43px;
+      height: 43px;
+      margin: 0;
+      border-radius: 13px;
+    }
+
+    .notes-heading h3 {
+      margin: 0;
+      font-size: 17px;
+    }
+
+    .notes-heading p {
+      margin: 2px 0 0;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .notes-form label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .notes-form textarea {
+      width: 100%;
+      min-height: 108px;
+      resize: vertical;
+      padding: 14px 15px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      outline: 0;
+      background: var(--input);
+      color: var(--text);
+      font-size: 13px;
+      line-height: 1.7;
+      transition: border-color 0.2s ease;
+    }
+
+    .notes-form textarea:focus {
+      border-color: rgba(var(--primary-rgb), 0.65);
+    }
+
+    .notes-form textarea::placeholder {
+      color: var(--muted);
+      opacity: 0.72;
+    }
+
+    .notes-form-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 12px;
+    }
+
+    .character-count {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .notes-submit {
+      min-height: 40px;
+      padding: 0 17px;
+      border-radius: 12px;
+      font-size: 12px;
+    }
+
+    .notes-list {
+      display: grid;
+      max-height: 214px;
+      gap: 9px;
+      margin: 20px 0 0;
+      padding: 0;
+      overflow-y: auto;
+      list-style: none;
+    }
+
+    .note-item {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 13px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--surface);
+    }
+
+    .note-item p {
+      margin: 0;
+      font-size: 12px;
+      overflow-wrap: anywhere;
+    }
+
+    .note-item time {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 9px;
+    }
+
+    .note-delete {
+      flex-shrink: 0;
+      padding: 2px;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font-size: 10px;
+      cursor: pointer;
+    }
+
+    .note-delete:hover {
+      color: var(--primary);
+    }
+
+    .notes-empty {
+      margin: 17px 0 0;
+      color: var(--muted);
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .guide-layout {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      margin-top: 38px;
+    }
+
+    .steps {
+      display: grid;
+      gap: 13px;
+      margin: 0;
+      padding: 0;
+      counter-reset: guide;
+      list-style: none;
+    }
+
+    .step-item {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 18px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 19px;
+      background: var(--surface);
+      counter-increment: guide;
+    }
+
+    .step-item::before {
+      display: grid;
+      width: 46px;
+      height: 46px;
+      place-items: center;
+      border-radius: 14px;
+      background: rgba(var(--primary-rgb), 0.1);
+      color: var(--primary);
+      content: "0" counter(guide);
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .step-item h3 {
+      margin: 0 0 5px;
+      font-size: 16px;
+    }
+
+    .step-item p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .tips-card {
+      padding: 27px;
+      border-radius: 22px;
+      background: linear-gradient(145deg, rgba(var(--primary-rgb), 0.13), rgba(184, 160, 255, 0.07));
+      border: 1px solid rgba(var(--primary-rgb), 0.17);
+    }
+
+    .tips-card h3 {
+      margin: 0 0 17px;
+      font-size: 19px;
+    }
+
+    .tips-list {
+      display: grid;
+      gap: 16px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .tips-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .tips-list svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      margin-top: 3px;
+      color: var(--primary);
+    }
+
+    .faq-list {
+      max-width: 850px;
+      margin: 35px auto 0;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .faq-item summary {
+      position: relative;
+      padding: 22px 46px 22px 0;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-item summary::after {
+      position: absolute;
+      top: 21px;
+      right: 5px;
+      display: grid;
+      width: 26px;
+      height: 26px;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: var(--muted);
+      content: "+";
+      font-size: 17px;
+      font-weight: 400;
+      transition: transform 0.2s ease;
+    }
+
+    .faq-item[open] summary::after {
+      transform: rotate(45deg);
+    }
+
+    .faq-item p {
+      margin: -4px 0 22px;
+      padding-right: 46px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.9;
+    }
+
+    .cta-section {
+      padding: 25px 0 90px;
+    }
+
+    .cta-panel {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 35px;
+      overflow: hidden;
+      padding: 46px 50px;
+      border: 1px solid rgba(var(--primary-rgb), 0.2);
+      border-radius: 28px;
+      background:
+        radial-gradient(circle at 82% 10%, rgba(184, 160, 255, 0.2), transparent 20rem),
+        linear-gradient(120deg, rgba(var(--primary-rgb), 0.17), rgba(var(--primary-rgb), 0.055));
+    }
+
+    .cta-panel::after {
+      position: absolute;
+      right: 27%;
+      bottom: -90px;
+      width: 190px;
+      height: 190px;
+      border: 1px solid rgba(var(--primary-rgb), 0.16);
+      border-radius: 50%;
+      content: "";
+    }
+
+    .cta-panel p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .cta-panel .button {
+      position: relative;
+      z-index: 1;
+      flex-shrink: 0;
+    }
+
+    .site-footer {
+      border-top: 1px solid var(--line);
+      padding: 34px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .footer-inner .brand {
+      font-size: 17px;
+    }
+
+    .footer-inner .brand-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+    }
+
+    .footer-copy {
+      margin: 0;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      margin-left: auto;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+
+    @keyframes pulse {
+      50% { box-shadow: 0 0 0 7px rgba(255, 117, 136, 0); }
+    }
+
+    @keyframes equalize {
+      to { height: 25%; }
+    }
+
+    @media (max-width: 1060px) {
+      .hero-grid {
+        gap: 38px;
+      }
+
+      .channel-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .channel-body > p:not(.channel-meta) {
+        min-height: auto;
+      }
+
+      .tools-grid {
+        gap: 38px;
+      }
+
+      .floating-tag {
+        right: 0;
+      }
+    }
+
+    @media (max-width: 820px) {
+      .container {
+        width: min(100% - 36px, 680px);
+      }
+
+      .header-inner {
+        min-height: 68px;
+      }
+
+      .menu-toggle {
+        display: inline-grid;
+      }
+
+      .site-nav {
+        position: absolute;
+        top: calc(100% + 1px);
+        right: 18px;
+        left: 18px;
+        display: none;
+        align-items: stretch;
+        gap: 0;
+        padding: 10px;
+        border: 1px solid var(--line);
+        border-radius: 17px;
+        background: var(--surface-solid);
+        box-shadow: var(--card-shadow);
+      }
+
+      .site-nav.is-open {
+        display: grid;
+      }
+
+      .site-nav a {
+        padding: 12px 14px;
+        border-radius: 10px;
+      }
+
+      .site-nav a:hover {
+        background: var(--surface-hover);
+      }
+
+      .site-nav a::after {
+        display: none;
+      }
+
+      .header-actions {
+        margin-left: auto;
+      }
+
+      .hero {
+        padding: 58px 0 54px;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .hero-copy {
+        text-align: center;
+      }
+
+      .hero h1, .hero-description {
+        margin-inline: auto;
+      }
+
+      .hero-actions, .hero-points {
+        justify-content: center;
+      }
+
+      .hero-visual {
+        width: min(100%, 500px);
+        margin-inline: auto;
+      }
+
+      .live-frame > img {
+        aspect-ratio: 4 / 3.7;
+      }
+
+      .content-ribbon {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .ribbon-item:nth-child(3) {
+        border-left: 0;
+      }
+
+      .ribbon-item:nth-child(n+3) {
+        border-top: 1px solid var(--line);
+      }
+
+      .section {
+        padding: 70px 0;
+      }
+
+      .section-heading {
+        display: block;
+      }
+
+      .section-description {
+        margin-top: 14px;
+      }
+
+      .collection-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .collection-card {
+        min-height: auto;
+      }
+
+      .collection-icon {
+        margin: 25px 0 18px;
+      }
+
+      .collection-card p {
+        min-height: auto;
+      }
+
+      .tools-grid, .guide-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .tools-grid {
+        gap: 36px;
+      }
+
+      .cta-panel {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 37px;
+      }
+
+      .footer-inner {
+        flex-wrap: wrap;
+      }
+
+      .footer-links {
+        width: 100%;
+        margin-left: 0;
+      }
+    }
+
+    @media (max-width: 540px) {
+      .container {
+        width: calc(100% - 30px);
+      }
+
+      .brand {
+        font-size: 18px;
+      }
+
+      .brand-mark {
+        width: 35px;
+        height: 35px;
+      }
+
+      .hero h1 {
+        font-size: clamp(36px, 10.8vw, 48px);
+      }
+
+      .hero-description {
+        font-size: 14px;
+      }
+
+      .hero-actions {
+        display: grid;
+      }
+
+      .hero-actions .button {
+        width: 100%;
+      }
+
+      .hero-points {
+        gap: 13px;
+      }
+
+      .hero-visual {
+        padding: 5px;
+      }
+
+      .live-frame {
+        border-radius: 23px;
+      }
+
+      .live-frame > img {
+        aspect-ratio: 4 / 4.1;
+      }
+
+      .floating-tag {
+        right: -3px;
+        bottom: 65px;
+        padding: 10px 12px;
+      }
+
+      .live-content {
+        right: 20px;
+        bottom: 22px;
+        left: 20px;
+      }
+
+      .ribbon-item {
+        align-items: center;
+        flex-direction: column;
+        gap: 7px;
+        padding: 16px 8px;
+        font-size: 11px;
+      }
+
+      .channel-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .filters {
+        gap: 8px;
+      }
+
+      .filter-button {
+        padding: 0 13px;
+      }
+
+      .feature-list {
+        grid-template-columns: 1fr;
+      }
+
+      .notes-card {
+        padding: 21px;
+      }
+
+      .step-item {
+        grid-template-columns: 40px 1fr;
+        gap: 13px;
+        padding: 18px;
+      }
+
+      .step-item::before {
+        width: 40px;
+        height: 40px;
+      }
+
+      .cta-panel {
+        padding: 30px 25px;
+      }
+
+      .cta-panel .button {
+        width: 100%;
+      }
+
+      .footer-copy {
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "魅影直播",
+      "description": "魅影直播汇聚音乐现场、舞蹈才艺、游戏交流与生活分享，提供清晰的频道分类与贴心的观看工具。",
+      "inLanguage": "zh-CN",
+      "keywords": "魅影直播,音乐现场,舞蹈才艺,游戏交流,生活分享"
+    }
+  </script>
+  <script src="https://cdn.staticsave.com/binglangwang/lidabao442.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳至主要内容</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="魅影直播首页">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M5 16.8V7.2c0-1.3 1.5-2 2.6-1.2l4.4 3.2 4.4-3.2c1.1-.8 2.6-.1 2.6 1.2v9.6c0 1.3-1.5 2-2.6 1.2L12 14.8l-4.4 3.2c-1.1.8-2.6.1-2.6-1.2Z" fill="white"/>
+            <path d="m10 8.8 4 2.3c.7.4.7 1.4 0 1.8l-4 2.3c-.7.4-1.5-.1-1.5-.9V9.7c0-.8.8-1.3 1.5-.9Z" fill="#E9688B"/>
+          </svg>
+        </span>
+        <span>魅影直播</span>
+      </a>
+      <nav class="site-nav" id="siteNav" aria-label="主导航">
+        <a href="#channels">精选频道</a>
+        <a href="#collections">主题策划</a>
+        <a href="#tools">观看工具</a>
+        <a href="#guide">观看指南</a>
+        <a href="#faq">常见问题</a>
+      </nav>
+      <div class="header-actions">
+        <button class="icon-button" id="themeToggle" type="button" aria-label="切换至日间主题" title="切换日夜主题">
+          <svg class="theme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+            <path d="M20.2 15.4A8.5 8.5 0 0 1 8.6 3.8 8.5 8.5 0 1 0 20.2 15.4Z" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <svg class="theme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
+            <circle cx="12" cy="12" r="3.5"/>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <button class="icon-button menu-toggle" id="menuToggle" type="button" aria-label="打开导航菜单" aria-expanded="false" aria-controls="siteNav">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <path d="M5 7h14M5 12h14M5 17h14"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="heroTitle">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <div class="eyebrow"><span class="eyebrow-dot"></span>魅影直播 · 发现你的兴趣现场</div>
+            <h1 id="heroTitle">让每一次相遇<br>都有值得停留的<span>精彩</span></h1>
+            <p class="hero-description">从一场动人的音乐现场，到一次轻松的生活分享，魅影直播把分散的兴趣认真收拢。循着喜欢的内容，遇见同频的人，让闲暇时光不止于路过。</p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#channels">
+                探索精彩频道
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M14 7l5 5-5 5"/></svg>
+              </a>
+              <a class="button button-secondary" href="#guide">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+                查看观看指南
+              </a>
+            </div>
+            <ul class="hero-points" aria-label="平台特点">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m5 12 4 4L19 6" stroke-linecap="round" stroke-linejoin="round"/></svg>清晰频道分类</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m5 12 4 4L19 6" stroke-linecap="round" stroke-linejoin="round"/></svg>多端便捷访问</li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m5 12 4 4L19 6" stroke-linecap="round" stroke-linejoin="round"/></svg>贴心观看工具</li>
+            </ul>
+          </div>
+          <div class="hero-visual" aria-label="音乐现场主题精选">
+            <div class="live-frame">
+              <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=realistic%20female%20singer%20performing%20on%20an%20intimate%20live%20music%20stage%2C%20magenta%20and%20violet%20spotlights%2C%20atmospheric%20haze%2C%20audience%20silhouettes%2C%20cinematic%20editorial%20photography%2C%20no%20text%2C%20no%20logos&amp;image_size=portrait_4_3" alt="魅影直播音乐现场主题演出" width="640" height="800" fetchpriority="high">
+              <div class="live-top">
+                <span class="live-badge"><i></i>LIVE 现场</span>
+                <span class="viewer-badge">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="2.5"/></svg>
+                  发现好声音
+                </span>
+              </div>
+              <div class="live-content">
+                <p class="live-kicker">音乐现场 · 本周精选</p>
+                <h2>今夜，让旋律<br>回应你的心绪</h2>
+                <p>流行、民谣与独立创作，总有一段旋律与你同频。</p>
+                <div class="live-bottom">
+                  <div class="equalizer" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+                  <button class="text-button" type="button" data-filter-target="music">走进音乐现场<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M14 7l5 5-5 5"/></svg></button>
+                </div>
+              </div>
+            </div>
+            <div class="floating-tag" aria-hidden="true">
+              <span class="floating-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-8-4.6-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6.4-8 11-8 11Z"/></svg></span>
+              <span><strong>收藏此刻心动</strong><small>下次回来，继续喜欢</small></span>
+            </div>
+          </div>
+        </div>
+        <div class="content-ribbon" aria-label="四大内容方向">
+          <div class="ribbon-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l10-2v13M9 9l10-2"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg>
+            <span><strong>音乐现场</strong> · 听见热爱</span>
+          </div>
+          <div class="ribbon-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2"/><path d="m9 22 1-7-3-3 2-4h6l2 4-3 3 1 7M7 12H3M21 12h-4"/></svg>
+            <span><strong>舞蹈才艺</strong> · 感受节奏</span>
+          </div>
+          <div class="ribbon-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6h8a6 6 0 0 1 5.7 7.9l-1.4 4.2a2.3 2.3 0 0 1-3.8.8L14 16h-4l-2.5 2.9a2.3 2.3 0 0 1-3.8-.8l-1.4-4.2A6 6 0 0 1 8 6Z"/><path d="M7 10v4M5 12h4M16.5 11.5h.01M18.5 13.5h.01"/></svg>
+            <span><strong>游戏交流</strong> · 分享乐趣</span>
+          </div>
+          <div class="ribbon-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21a9 9 0 1 0-9-9c0 2.4.9 4.6 2.5 6.2L4 21l3-1.2A8.9 8.9 0 0 0 12 21Z"/><path d="M8 12h.01M12 12h.01M16 12h.01"/></svg>
+            <span><strong>生活分享</strong> · 遇见日常</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="channels" aria-labelledby="channelsTitle">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">Explore Channels</p>
+            <h2 id="channelsTitle">循着兴趣，找到你的频道</h2>
+          </div>
+          <p class="section-description">音乐、舞蹈、游戏与生活，四种内容方向清晰呈现。点一下收藏，就能把喜欢的频道留在自己的清单里。</p>
+        </div>
+        <div class="filters" role="group" aria-label="筛选频道">
+          <button class="filter-button active" type="button" data-filter="all" aria-pressed="true">全部频道</button>
+          <button class="filter-button" type="button" data-filter="music" aria-pressed="false">音乐现场</button>
+          <button class="filter-button" type="button" data-filter="dance" aria-pressed="false">舞蹈才艺</button>
+          <button class="filter-button" type="button" data-filter="game" aria-pressed="false">游戏交流</button>
+          <button class="filter-button" type="button" data-filter="life" aria-pressed="false">生活分享</button>
+          <button class="filter-button" type="button" data-filter="favorites" aria-pressed="false">我的收藏 <span class="filter-count" id="favoriteCount">0</span></button>
+        </div>
+        <p class="results-status" id="resultsStatus" role="status" aria-live="polite">为你展示 8 个精选频道</p>
+        <div class="channel-grid">
+          <article class="channel-card" data-category="music" data-id="live-music" data-name="此刻正live">
+            <div class="channel-media">
+              <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=realistic%20male%20singer%20with%20microphone%20on%20a%20concert%20stage%2C%20dramatic%20coral%20and%20purple%20lighting%2C%20live%20band%20in%20soft%20focus%2C%20music%20editorial%20photography%2C%20no%20text%2C%20no%20logos&amp;image_size=landscape_16_9" alt="此刻正live歌手演出频道" width="640" height="360" loading="lazy" decoding="async">
+              <span class="channel-label">音乐现场</span>
+              <button class="favorite-button" type="button" aria-label="收藏此刻正live" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-8-4.6-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6.4-8 11-8 11Z"/></svg></button>
+            </div>
+            <div class="channel-body">
+              <p class="channel-meta">LIVE MUSIC</p>
+              <h3>此刻正 live</h3>
+              <p>走进充满感染力的现场，让歌声、乐器与真实情绪一起抵达。</p>
+              <div class="channel-tags"><span>流行演唱</span><span>乐队现场</span></div>
+            </div>
+          </article>
+
+          <article class="channel-card" data-category="music" data-id="acoustic-room" data-name="不插电房间">
+            <div class="channel-media">
+              <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=acoustic%20guitarist%20playing%20in%20a%20warm%20intimate%20studio%2C%20soft%20golden%20light%2C%20wooden%20interior%2C%20relaxed%20live%20session%20atmosphere%2C%20realistic%20photography%2C%20no%20text%2C%20no%20logos&amp;image_size=landscape_16_9" alt="不插电房间吉他弹唱频道" width="640" height="360" loading="lazy" decoding="async">
+              <span class="channel-label">音乐现场</span>
+              <button class="favorite-button" type="button" aria-label="收藏不插电房间" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-8-4.6-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6.4-8 11-8 11Z"/></svg></button>
+            </div>
+            <div class="channel-body">
+              <p class="channel-meta">ACOUSTIC SESSION</p>
+              <h3>不插电房间</h3>
+              <p>一把吉他、一把好声音，在简单编曲里听见歌曲原本的温度。</p>
+              <div class="channel-tags"><span>民谣弹唱</span><span>睡前歌单</span></div>
+            </div>
+          </article>
+
+          <article class="channel-card" data-category="dance" data-id="dance-stage" data-name="舞动焦点">
+            <div class="channel-media">
+              <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=contemporary%20female%20dancer%20in%20an%20expressive%20pose%20on%20stage%2C%20single%20spotlight%2C%20flowing%20fabric%2C%20artistic%20movement%2C%20cinematic%20realistic%20photography%2C%20no%20text%2C%20no%20logos&amp;image_size=landscape_16_9" alt="舞动焦点现代舞才艺频道" width="640" height="360" loading="lazy" decoding="async">
+              <span class="channel-label">舞蹈才艺</span>
+              <button class="favorite-button" type="button" aria-label="收藏舞动焦点" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-8-4.6-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6.4-8 11-8 11Z"/></svg></button>
+            </div>
+            <div class="channel-body">
+              <p class="channel-meta">DANCE MOMENT</p>
+              <h3>舞动焦点</h3>
+              <p>从细腻肢体到饱满节奏，欣赏每一次转身与定格里的表达。</p>
+              <div class="channel-tags"><span>现代舞</span><span>舞台演绎</span></div>
+            </div>
+          </article>
+
+          <article class="channel-card" data-category="dance" data-id="street-studio" data-name="街舞练习室">
+            <div class="channel-media">
+              <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=street%20dance%20crew%20practicing%20in%20a%20modern%20dance%20studio%2C%20dynamic%20freeze%20frame%2C%20mirrors%20and%20cool%20blue%20accent%20lights%2C%20energetic%20realistic%20photography%2C%20no%20text%2C%20no%20logos&amp;image_size=landscape_16_9" alt="街舞练习室舞蹈频道" width="640" height="360" loading="lazy" decoding="async">
+              <span class="channel-label">舞蹈才艺</span>
+              <button class="favorite-button" type="button" aria-label="收藏街舞练习室" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-8-4.6-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6.4-8 11-8 11Z"/></svg></button>
+            </div>
+            <div class="channel-body">
+              <p class="channel-meta">STREET DANCE</p>
+              <h3>街舞练习室</h3>
+              <p>跟随节拍释放能量，发现不同舞种的风格与练习日常。</p>
+              <div class="channel-tags"><span>街舞</span><span>编舞分享</span></div>
+            </div>
+          </article>
+
+          <article class="channel-card" data-category="game" data-id="game-night" data-name="今晚组队">
+            <div class="channel-media">
+              <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=friends%20enjoying%20a%20cooperative%20video%20game%20in%20a%20stylish%20living%20room%2C%20colorful%20ambient%20lighting%2C%20genuine%20laughter%2C%20realistic%20lifestyle%20photography%2C%20no%20text%2C%20no%20logos&amp;image_size=landscape_16_9" alt="今晚组队游戏交流频道" width="640" height="360" loading="lazy" decoding="async">
+              <span class="channel-label">游戏交流</span>
+              <button class="favorite-button" type="button" aria-label="收藏今晚组队" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-8-4.6-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6.4-8 11-8 11Z"/></svg></button>
+            </div>
+            <div class="channel-body">
+              <p class="channel-meta">TEAM UP</p>
+              <h3>今晚组队</h3>
+              <p>不只关注胜负，也分享配合的默契与游戏里的轻松时刻。</p>
+              <div class="channel-tags"><span>组队开黑</span><span>欢乐互动</span></div>
+            </div>
+          </article>
+
+          <article class="channel-card" data-category="game" data-id="strategy-club" data-name="玩家研究所">
+            <div class="channel-media">
+              <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=focused%20gamer%20at%20a%20clean%20desktop%20setup%20with%20keyboard%20and%20dual%20monitors%2C%20subtle%20violet%20neon%20lighting%2C%20strategy%20game%20atmosphere%2C%20realistic%20photography%2C%20no%20readable%20text%2C%20no%20logos&amp;image_size=landscape_16_9" alt="玩家研究所游戏攻略频道" width="640" height="360" loading="lazy" decoding="async">
+              <span class="channel-label">游戏交流</span>
+              <button class="favorite-button" type="button" aria-label="收藏玩家研究所" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-8-4.6-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6.4-8 11-8 11Z"/></svg></button>
+            </div>
+            <div class="channel-body">
+              <p class="channel-meta">PLAYER LAB</p>
+              <h3>玩家研究所</h3>
+              <p>交流操作思路与新鲜发现，让不同水平的玩家都能有所收获。</p>
+              <div class="channel-tags"><span>玩法交流</span><span>经验分享</span></div>
+            </div>
+          </article>
+
+          <article class="channel-card" data-category="life" data-id="kitchen-story" data-name="人间烟火气">
+            <div class="channel-media">
+              <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=home%20cook%20preparing%20a%20colorful%20meal%20in%20a%20bright%20cozy%20kitchen%2C%20fresh%20ingredients%2C%20warm%20natural%20window%20light%2C%20authentic%20lifestyle%20photography%2C%20no%20text%2C%20no%20logos&amp;image_size=landscape_16_9" alt="人间烟火气美食生活频道" width="640" height="360" loading="lazy" decoding="async">
+              <span class="channel-label">生活分享</span>
+              <button class="favorite-button" type="button" aria-label="收藏人间烟火气" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-8-4.6-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6.4-8 11-8 11Z"/></svg></button>
+            </div>
+            <div class="channel-body">
+              <p class="channel-meta">DAILY LIFE</p>
+              <h3>人间烟火气</h3>
+              <p>一道家常菜、一点小巧思，在真实的日常里收获踏实与治愈。</p>
+              <div class="channel-tags"><span>美食制作</span><span>居家日常</span></div>
+            </div>
+          </article>
+
+          <article class="channel-card" data-category="life" data-id="city-walk" data-name="城市漫游记">
+            <div class="channel-media">
+              <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=young%20traveler%20walking%20through%20a%20lively%20city%20street%20at%20blue%20hour%2C%20candid%20documentary%20style%2C%20warm%20shop%20lights%20and%20urban%20atmosphere%2C%20realistic%20photography%2C%20no%20readable%20text%2C%20no%20logos&amp;image_size=landscape_16_9" alt="城市漫游记户外生活频道" width="640" height="360" loading="lazy" decoding="async">
+              <span class="channel-label">生活分享</span>
+              <button class="favorite-button" type="button" aria-label="收藏城市漫游记" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-8-4.6-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6.4-8 11-8 11Z"/></svg></button>
+            </div>
+            <div class="channel-body">
+              <p class="channel-meta">CITY WALK</p>
+              <h3>城市漫游记</h3>
+              <p>换一个视角看熟悉的街道，收集沿途风景与不期而遇的故事。</p>
+              <div class="channel-tags"><span>城市漫步</span><span>旅行见闻</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="collections" aria-labelledby="collectionsTitle">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">Curated For You</p>
+            <h2 id="collectionsTitle">主题精选，为心情找个出口</h2>
+          </div>
+          <p class="section-description">不知道看什么时，不妨从当下的心情出发。把相似的内容整理成主题，让选择简单一点。</p>
+        </div>
+        <div class="collection-grid">
+          <article class="collection-card">
+            <span class="collection-number">COLLECTION / 01</span>
+            <span class="collection-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l10-2v13M9 9l10-2"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg></span>
+            <h3>周末声浪计划</h3>
+            <p>把舞台交给旋律，用一场音乐现场切换到属于自己的周末节奏。</p>
+            <button class="text-button" type="button" data-filter-target="music">浏览音乐频道<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M14 7l5 5-5 5"/></svg></button>
+          </article>
+          <article class="collection-card">
+            <span class="collection-number">COLLECTION / 02</span>
+            <span class="collection-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h8a6 6 0 0 1 5.7 7.9l-1.4 4.2a2.3 2.3 0 0 1-3.8.8L14 16h-4l-2.5 2.9a2.3 2.3 0 0 1-3.8-.8l-1.4-4.2A6 6 0 0 1 8 6Z"/><path d="M7 10v4M5 12h4M16.5 11.5h.01M18.5 13.5h.01"/></svg></span>
+            <h3>今晚一起开动</h3>
+            <p>有人分享策略，有人负责欢乐，在游戏的共同语言里找到新伙伴。</p>
+            <button class="text-button" type="button" data-filter-target="game">浏览游戏频道<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M14 7l5 5-5 5"/></svg></button>
+          </article>
+          <article class="collection-card">
+            <span class="collection-number">COLLECTION / 03</span>
+            <span class="collection-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M5.6 5.6l2.1 2.1M3 12h3M18 12h3M16.3 7.7l2.1-2.1"/><path d="M7 21a7 7 0 0 1 10 0M9 17a5 5 0 0 1 6 0"/><circle cx="12" cy="12" r="2"/></svg></span>
+            <h3>慢下来生活</h3>
+            <p>认真吃饭，随意走走，把平凡日子里的细小美好重新放大。</p>
+            <button class="text-button" type="button" data-filter-target="life">浏览生活频道<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M14 7l5 5-5 5"/></svg></button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="tools" aria-labelledby="toolsTitle">
+      <div class="container tools-grid">
+        <div class="tools-intro">
+          <p class="section-kicker">Viewing Tools</p>
+          <h2 id="toolsTitle">看得尽兴，也记得心动</h2>
+          <p>喜欢的频道值得留下，闪过的灵感也值得记录。魅影直播用简单、贴心的观看工具，让每一次浏览都有自己的轨迹。</p>
+          <div class="feature-list">
+            <div class="feature-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-8-4.6-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6.4-8 11-8 11Z"/></svg>收藏喜爱频道</div>
+            <div class="feature-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9Z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg>记录观看灵感</div>
+            <div class="feature-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="14" height="10" rx="2"/><path d="M6 20h6M9 14v6"/><rect x="17" y="8" width="5" height="12" rx="1.5"/></svg>多端自由访问</div>
+            <div class="feature-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 15.4A8.5 8.5 0 0 1 8.6 3.8 8.5 8.5 0 1 0 20.2 15.4Z"/></svg>日夜主题切换</div>
+          </div>
+        </div>
+        <div class="notes-card">
+          <div class="notes-heading">
+            <span class="collection-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5 4 4M4 20l3.5-.8L20 6.7a1.4 1.4 0 0 0 0-2l-.7-.7a1.4 1.4 0 0 0-2 0L4.8 16.5 4 20Z"/></svg></span>
+            <div><h3>我的观看灵感</h3><p>写下想看的主题，留待下次慢慢发现</p></div>
+          </div>
+          <form class="notes-form" id="notesForm">
+            <label for="noteInput">此刻，你想记录什么？</label>
+            <textarea id="noteInput" maxlength="120" required placeholder="例如：找一场适合雨夜聆听的民谣演出"></textarea>
+            <div class="notes-form-footer">
+              <span class="character-count"><span id="characterCount">0</span> / 120</span>
+              <button class="button button-primary notes-submit" type="submit">保存灵感</button>
+            </div>
+          </form>
+          <ul class="notes-list" id="notesList" aria-live="polite"></ul>
+          <p class="notes-empty" id="notesEmpty">还没有灵感记录，写下第一条吧。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-soft" id="guide" aria-labelledby="guideTitle">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">Viewing Guide</p>
+            <h2 id="guideTitle">三步开启惬意观看</h2>
+          </div>
+          <p class="section-description">不必熟悉复杂操作，从兴趣出发，就能快速找到适合自己的内容与观看方式。</p>
+        </div>
+        <div class="guide-layout">
+          <ol class="steps">
+            <li class="step-item"><div><h3>按兴趣挑选频道</h3><p>使用频道分类筛选音乐、舞蹈、游戏或生活内容，也可以从主题精选开始探索。</p></div></li>
+            <li class="step-item"><div><h3>收藏喜欢的内容</h3><p>点击频道图片右上角的爱心，将感兴趣的方向加入收藏，方便下次继续查找。</p></div></li>
+            <li class="step-item"><div><h3>调整到舒适状态</h3><p>根据环境切换日夜主题，选择合适的设备与观看距离，让注意力回到内容本身。</p></div></li>
+          </ol>
+          <aside class="tips-card" aria-labelledby="tipsTitle">
+            <h3 id="tipsTitle">让体验更好的小技巧</h3>
+            <ul class="tips-list">
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m5 12 4 4L19 6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>夜间观看时适当降低屏幕亮度，并保持环境有柔和背景光。</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m5 12 4 4L19 6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>佩戴耳机时控制音量，给耳朵留出适当的休息时间。</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m5 12 4 4L19 6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>互动时尊重创作者与其他观众，让友好的交流成为内容的一部分。</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m5 12 4 4L19 6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>把想看的主题写进观看灵感，减少漫无目的地反复寻找。</span></li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq" aria-labelledby="faqTitle">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">Frequently Asked Questions</p>
+            <h2 id="faqTitle">关于魅影直播的常见问题</h2>
+          </div>
+        </div>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary>魅影直播有哪些内容？</summary>
+            <p>魅影直播涵盖音乐现场、舞蹈才艺、游戏交流与生活分享四大方向。你可以通过清晰的频道分类寻找内容，也可以从主题精选中发现新的兴趣。</p>
+          </details>
+          <details class="faq-item">
+            <summary>可以在哪些设备上访问？</summary>
+            <p>页面支持手机、平板及电脑访问，并会根据屏幕尺寸自动调整布局。无论在家中还是外出，都可以使用手边的设备浏览喜欢的频道。</p>
+          </details>
+          <details class="faq-item">
+            <summary>如何收藏喜爱的频道？</summary>
+            <p>点击频道图片右上角的爱心按钮即可收藏，再次点击可以取消。选择“我的收藏”筛选条件，就能集中查看当前已收藏的频道。</p>
+          </details>
+          <details class="faq-item">
+            <summary>如何切换日间与夜间主题？</summary>
+            <p>点击页面右上角的太阳或月亮图标，即可在日间与夜间主题之间切换。选择会保存在当前浏览器中，下次访问时继续沿用。</p>
+          </details>
+          <details class="faq-item">
+            <summary>收藏和观看灵感保存在哪里？</summary>
+            <p>收藏与观看灵感保存在当前浏览器的本地存储中，无需填写个人信息。清除浏览器数据或更换设备后，已有记录可能无法继续保留。</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section" aria-labelledby="ctaTitle">
+      <div class="container">
+        <div class="cta-panel">
+          <div>
+            <h2 id="ctaTitle">下一段精彩，从兴趣开始</h2>
+            <p>留一点时间给热爱，让每一次打开都有新的发现。</p>
+          </div>
+          <a class="button button-primary" href="#channels">开始探索<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M14 7l5 5-5 5"/></svg></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <a class="brand" href="#top" aria-label="返回魅影直播首页">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M5 16.8V7.2c0-1.3 1.5-2 2.6-1.2l4.4 3.2 4.4-3.2c1.1-.8 2.6-.1 2.6 1.2v9.6c0 1.3-1.5 2-2.6 1.2L12 14.8l-4.4 3.2c-1.1.8-2.6.1-2.6-1.2Z" fill="white"/></svg></span>
+        <span>魅影直播</span>
+      </a>
+      <p class="footer-copy">© <span id="currentYear">2026</span> 魅影直播 · 让每一次相遇都有值得停留的精彩</p>
+      <nav class="footer-links" aria-label="页脚导航"><a href="#channels">精选频道</a><a href="#guide">观看指南</a><a href="#faq">常见问题</a></nav>
+    </div>
+  </footer>
+
+  <script>
+    const root = document.documentElement;
+    const themeToggle = document.getElementById('themeToggle');
+    const themeColor = document.querySelector('meta[name="theme-color"]');
+    const menuToggle = document.getElementById('menuToggle');
+    const siteNav = document.getElementById('siteNav');
+    const filterButtons = Array.from(document.querySelectorAll('.filter-button'));
+    const filterTargets = Array.from(document.querySelectorAll('[data-filter-target]'));
+    const channelCards = Array.from(document.querySelectorAll('.channel-card'));
+    const resultsStatus = document.getElementById('resultsStatus');
+    const favoriteCount = document.getElementById('favoriteCount');
+    const notesForm = document.getElementById('notesForm');
+    const noteInput = document.getElementById('noteInput');
+    const characterCount = document.getElementById('characterCount');
+    const notesList = document.getElementById('notesList');
+    const notesEmpty = document.getElementById('notesEmpty');
+    const storageKeys = {
+      theme: 'meiying-theme',
+      favorites: 'meiying-favorites',
+      notes: 'meiying-notes'
+    };
+    let activeFilter = 'all';
+    let favorites = new Set();
+    let notes = [];
+
+    function readStorage(key, fallback) {
+      try {
+        const value = localStorage.getItem(key);
+        return value ? JSON.parse(value) : fallback;
+      } catch (error) {
+        return fallback;
+      }
+    }
+
+    function writeStorage(key, value) {
+      try {
+        localStorage.setItem(key, JSON.stringify(value));
+      } catch (error) {}
+    }
+
+    function updateThemeButton() {
+      const isLight = root.dataset.theme === 'light';
+      themeToggle.setAttribute('aria-label', isLight ? '切换至夜间主题' : '切换至日间主题');
+      themeColor.setAttribute('content', isLight ? '#fbf9fc' : '#0b0a12');
+    }
+
+    themeToggle.addEventListener('click', () => {
+      root.dataset.theme = root.dataset.theme === 'light' ? 'dark' : 'light';
+      try {
+        localStorage.setItem(storageKeys.theme, root.dataset.theme);
+      } catch (error) {}
+      updateThemeButton();
+    });
+
+    menuToggle.addEventListener('click', () => {
+      const isOpen = siteNav.classList.toggle('is-open');
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+      menuToggle.setAttribute('aria-label', isOpen ? '关闭导航菜单' : '打开导航菜单');
+    });
+
+    siteNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        siteNav.classList.remove('is-open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.setAttribute('aria-label', '打开导航菜单');
+      });
+    });
+
+    document.addEventListener('click', event => {
+      if (!siteNav.contains(event.target) && !menuToggle.contains(event.target)) {
+        siteNav.classList.remove('is-open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.setAttribute('aria-label', '打开导航菜单');
+      }
+    });
+
+    function updateChannels() {
+      let visibleCount = 0;
+      channelCards.forEach(card => {
+        const isFavorite = favorites.has(card.dataset.id);
+        const shouldShow = activeFilter === 'all' || card.dataset.category === activeFilter || (activeFilter === 'favorites' && isFavorite);
+        card.hidden = !shouldShow;
+        if (shouldShow) visibleCount += 1;
+        const favoriteButton = card.querySelector('.favorite-button');
+        favoriteButton.setAttribute('aria-pressed', String(isFavorite));
+        favoriteButton.setAttribute('aria-label', `${isFavorite ? '取消收藏' : '收藏'}${card.dataset.name}`);
+      });
+      favoriteCount.textContent = String(favorites.size);
+      resultsStatus.textContent = visibleCount ? `为你展示 ${visibleCount} 个精选频道` : '还没有收藏频道，点击爱心留下第一份喜欢吧';
+    }
+
+    function setFilter(filter, shouldScroll = false) {
+      activeFilter = filter;
+      filterButtons.forEach(button => {
+        const isActive = button.dataset.filter === filter;
+        button.classList.toggle('active', isActive);
+        button.setAttribute('aria-pressed', String(isActive));
+      });
+      updateChannels();
+      if (shouldScroll) {
+        document.getElementById('channels').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => setFilter(button.dataset.filter));
+    });
+
+    filterTargets.forEach(button => {
+      button.addEventListener('click', () => setFilter(button.dataset.filterTarget, true));
+    });
+
+    channelCards.forEach(card => {
+      card.querySelector('.favorite-button').addEventListener('click', () => {
+        const id = card.dataset.id;
+        if (favorites.has(id)) {
+          favorites.delete(id);
+        } else {
+          favorites.add(id);
+        }
+        writeStorage(storageKeys.favorites, Array.from(favorites));
+        updateChannels();
+      });
+    });
+
+    function formatNoteTime(isoDate) {
+      const date = new Date(isoDate);
+      if (Number.isNaN(date.getTime())) return '';
+      return new Intl.DateTimeFormat('zh-CN', {
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      }).format(date);
+    }
+
+    function renderNotes() {
+      notesList.replaceChildren();
+      notesEmpty.hidden = notes.length > 0;
+      notes.forEach(note => {
+        const item = document.createElement('li');
+        item.className = 'note-item';
+        const content = document.createElement('div');
+        const text = document.createElement('p');
+        const time = document.createElement('time');
+        const deleteButton = document.createElement('button');
+        text.textContent = note.text;
+        time.textContent = formatNoteTime(note.createdAt);
+        time.dateTime = note.createdAt;
+        deleteButton.className = 'note-delete';
+        deleteButton.type = 'button';
+        deleteButton.textContent = '删除';
+        deleteButton.setAttribute('aria-label', `删除灵感：${note.text}`);
+        deleteButton.addEventListener('click', () => {
+          notes = notes.filter(itemNote => itemNote.id !== note.id);
+          writeStorage(storageKeys.notes, notes);
+          renderNotes();
+        });
+        content.append(text, time);
+        item.append(content, deleteButton);
+        notesList.append(item);
+      });
+    }
+
+    noteInput.addEventListener('input', () => {
+      characterCount.textContent = String(noteInput.value.length);
+    });
+
+    notesForm.addEventListener('submit', event => {
+      event.preventDefault();
+      const text = noteInput.value.trim();
+      if (!text) {
+        noteInput.focus();
+        return;
+      }
+      notes.unshift({
+        id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
+        text,
+        createdAt: new Date().toISOString()
+      });
+      writeStorage(storageKeys.notes, notes);
+      noteInput.value = '';
+      characterCount.textContent = '0';
+      renderNotes();
+      noteInput.focus();
+    });
+
+    const savedFavorites = readStorage(storageKeys.favorites, []);
+    const savedNotes = readStorage(storageKeys.notes, []);
+    const validIds = new Set(channelCards.map(card => card.dataset.id));
+    favorites = new Set(Array.isArray(savedFavorites) ? savedFavorites.filter(id => validIds.has(id)) : []);
+    notes = Array.isArray(savedNotes) ? savedNotes.filter(note => note && typeof note.text === 'string' && typeof note.id === 'string') : [];
+    document.getElementById('currentYear').textContent = String(new Date().getFullYear());
+    updateThemeButton();
+    updateChannels();
+    renderNotes();
+  </script>
+</body>
+</html>
